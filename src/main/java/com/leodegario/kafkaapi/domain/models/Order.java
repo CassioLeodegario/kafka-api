@@ -1,5 +1,6 @@
-package com.leodegario.kafkaapi.models;
+package com.leodegario.kafkaapi.domain.models;
 
+import com.leodegario.kafkaapi.domain.enums.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "tb_order")
 public class Order {
 
     @Id
@@ -18,7 +20,8 @@ public class Order {
 
     private String identifier;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     private LocalDate orderDate;
 

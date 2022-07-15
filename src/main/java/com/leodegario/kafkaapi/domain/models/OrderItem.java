@@ -1,4 +1,4 @@
-package com.leodegario.kafkaapi.models;
+package com.leodegario.kafkaapi.domain.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
+@Table(name = "tb_order_item")
 public class OrderItem {
 
     @Id
@@ -24,5 +25,5 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "orderId")
     private Order order;
-    
+
 }

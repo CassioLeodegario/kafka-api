@@ -1,7 +1,7 @@
 package com.leodegario.kafkaapi.mappers;
 
 import com.leodegario.kafkaapi.dtos.OrderItemDto;
-import com.leodegario.kafkaapi.models.OrderItem;
+import com.leodegario.kafkaapi.domain.models.OrderItem;
 import org.springframework.beans.BeanUtils;
 
 public class OrderItemMapper {

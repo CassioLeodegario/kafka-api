@@ -1,9 +1,10 @@
 package com.leodegario.kafkaapi.mappers;
 
 import com.leodegario.kafkaapi.dtos.OrderDto;
-import com.leodegario.kafkaapi.models.Order;
+import com.leodegario.kafkaapi.domain.models.Order;
 import org.springframework.beans.BeanUtils;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class OrderMapper {
@@ -24,5 +25,11 @@ public class OrderMapper {
                 .map(OrderItemMapper::toDto)
                 .collect(Collectors.toList()));
         return orderDto;
+    }
+
+    public static List<OrderDto> toDtoList(List<Order> orders){
+        return orders.stream()
+                .map(OrderMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
