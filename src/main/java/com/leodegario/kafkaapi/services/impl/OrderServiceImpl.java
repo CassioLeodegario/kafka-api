@@ -2,6 +2,8 @@ package com.leodegario.kafkaapi.services.impl;
 
 import com.leodegario.kafkaapi.domain.enums.OrderStatus;
 import com.leodegario.kafkaapi.domain.models.Order;
+import com.leodegario.kafkaapi.events.KafkaClient;
+import com.leodegario.kafkaapi.mappers.OrderMapper;
 import com.leodegario.kafkaapi.repositories.OrderRepository;
 import com.leodegario.kafkaapi.services.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,8 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
+    private final KafkaClient kafkaClient;
+
     @Override
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -29,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(OrderStatus.PENDINDG);
         order.getItems()
                 .forEach(orderItem -> orderItem.setOrder(order));
-        return orderRepository.save(order);
+        orderRepository.save(order);
+        kafkaClient.sendMessage(OrderMapper.toDto(order));
+        return order;
+
     }
 }
